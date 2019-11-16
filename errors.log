@@ -1,0 +1,114 @@
+[24-Oct-2019 20:00:28 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:71
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 71
+[24-Oct-2019 20:00:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:71
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 71
+[24-Oct-2019 23:51:25 Europe/Berlin] PHP Notice:  Undefined index: moodle_dersler in C:\xampp\htdocs\arakatman\view\iliski.php on line 16
+[24-Oct-2019 23:51:25 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\iliski.php on line 16
+[24-Oct-2019 23:59:13 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function System::moodle_ders_ekle(), 1 passed in C:\xampp\htdocs\arakatman\senkron.php on line 22 and exactly 2 expected in C:\xampp\htdocs\arakatman\model\System.php:121
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\senkron.php(22): System->moodle_ders_ekle('CME112')
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 121
+[24-Oct-2019 23:59:54 Europe/Berlin] PHP Notice:  Undefined variable: tabloda_var_mi in C:\xampp\htdocs\arakatman\model\System.php on line 126
+[24-Oct-2019 23:59:54 Europe/Berlin] PHP Notice:  Undefined variable: obs_kisa_ad in C:\xampp\htdocs\arakatman\model\System.php on line 131
+[25-Oct-2019 00:14:19 Europe/Berlin] PHP Notice:  Undefined variable: data in C:\xampp\htdocs\arakatman\senkron.php on line 18
+[25-Oct-2019 00:14:19 Europe/Berlin] PHP Notice:  Undefined variable: mesaj in C:\xampp\htdocs\arakatman\senkron.php on line 28
+[25-Oct-2019 00:28:23 Europe/Berlin] PHP Warning:  date() expects at least 1 parameter, 0 given in C:\xampp\htdocs\arakatman\dersler.php on line 22
+[25-Oct-2019 00:28:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function datetime() in C:\xampp\htdocs\arakatman\dersler.php:22
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\arakatman\dersler.php on line 22
+[25-Oct-2019 01:06:00 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\arakatman\iliski.php on line 22
+[25-Oct-2019 01:06:04 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\arakatman\iliski.php on line 22
+[25-Oct-2019 01:06:08 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\arakatman\iliski.php on line 22
+[25-Oct-2019 02:02:24 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 02:03:42 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 02:06:29 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 02:06:48 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 02:06:53 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 02:07:44 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 02:13:34 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 11:24:53 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:71
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 71
+[25-Oct-2019 11:24:58 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:71
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 71
+[25-Oct-2019 11:26:36 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 11:26:39 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 11:26:59 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 11:27:02 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 11:30:55 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 11:49:51 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 141
+[25-Oct-2019 15:15:03 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:71
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 71
+[25-Oct-2019 15:15:17 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:71
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 71
+[31-Oct-2019 21:26:26 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:71
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 71
+[31-Oct-2019 21:26:34 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:71
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 71
+[31-Oct-2019 21:26:39 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:71
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\dersler.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 71
+[31-Oct-2019 21:44:49 Europe/Berlin] PHP Notice:  Undefined index: obs_dersler in C:\xampp\htdocs\arakatman\view\dersler.php on line 21
+[31-Oct-2019 21:44:49 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\dersler.php on line 21
+[31-Oct-2019 21:44:49 Europe/Berlin] PHP Notice:  Undefined index: moodle_dersler in C:\xampp\htdocs\arakatman\view\dersler.php on line 59
+[31-Oct-2019 21:44:49 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\dersler.php on line 59
+[31-Oct-2019 21:44:59 Europe/Berlin] PHP Notice:  Undefined index: obs_dersler in C:\xampp\htdocs\arakatman\view\dersler.php on line 21
+[31-Oct-2019 21:44:59 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\dersler.php on line 21
+[31-Oct-2019 21:44:59 Europe/Berlin] PHP Notice:  Undefined index: moodle_dersler in C:\xampp\htdocs\arakatman\view\dersler.php on line 59
+[31-Oct-2019 21:44:59 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\dersler.php on line 59
+[31-Oct-2019 21:45:10 Europe/Berlin] PHP Parse error:  syntax error, unexpected '}', expecting end of file in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 38
+[31-Oct-2019 21:45:11 Europe/Berlin] PHP Parse error:  syntax error, unexpected '}', expecting end of file in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 38
+[31-Oct-2019 22:16:12 Europe/Berlin] PHP Notice:  Undefined index: alt_elemanlari in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:12 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:12 Europe/Berlin] PHP Notice:  Undefined index: alt_elemanlari in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:12 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:12 Europe/Berlin] PHP Notice:  Undefined index: alt_elemanlari in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:12 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:18 Europe/Berlin] PHP Notice:  Undefined index: alt_elemanlari in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:18 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:18 Europe/Berlin] PHP Notice:  Undefined index: alt_elemanlari in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:18 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:18 Europe/Berlin] PHP Notice:  Undefined index: alt_elemanlari in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:16:18 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 27
+[31-Oct-2019 22:17:02 Europe/Berlin] PHP Notice:  Undefined index: alt_elemanlari in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 26
+[31-Oct-2019 22:17:02 Europe/Berlin] PHP Notice:  Undefined index: alt_elemanlari in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 26
+[31-Oct-2019 22:17:02 Europe/Berlin] PHP Notice:  Undefined index: alt_elemanlari in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 26
+[31-Oct-2019 22:30:34 Europe/Berlin] PHP Notice:  Undefined index: name in C:\xampp\htdocs\arakatman\model\System.php on line 158
+[31-Oct-2019 22:31:52 Europe/Berlin] PHP Notice:  Undefined index: fullname in C:\xampp\htdocs\arakatman\model\System.php on line 158
+[31-Oct-2019 22:33:35 Europe/Berlin] PHP Notice:  Undefined index: obs_adi in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 39
+[31-Oct-2019 22:33:35 Europe/Berlin] PHP Notice:  Undefined index: obs_adi in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 39
+[31-Oct-2019 22:33:35 Europe/Berlin] PHP Notice:  Undefined index: obs_adi in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 39
+[31-Oct-2019 22:33:35 Europe/Berlin] PHP Notice:  Undefined index: obs_adi in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 39
+[31-Oct-2019 22:33:35 Europe/Berlin] PHP Notice:  Undefined index: obs_adi in C:\xampp\htdocs\arakatman\view\iliskiler.php on line 39
+[31-Oct-2019 22:35:39 Europe/Berlin] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\arakatman\model\System.php on line 161
+[31-Oct-2019 23:34:19 Europe/Berlin] PHP Notice:  Undefined index: firsname in C:\xampp\htdocs\arakatman\model\System.php on line 126
+[31-Oct-2019 23:34:19 Europe/Berlin] PHP Notice:  Undefined index: firsname in C:\xampp\htdocs\arakatman\model\System.php on line 126
+[31-Oct-2019 23:39:52 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\arakatman\model\System.php on line 181
+[31-Oct-2019 23:40:06 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\arakatman\model\System.php on line 181
