@@ -1,5 +1,4 @@
 
-
 <div class="col-lg-12">
     <div class="col-lg-12">
         <table class="table table-striped table-dark">
@@ -41,7 +40,6 @@
             </tbody>
         </table>
     </div>
-
     <div class="col-lg-12">
         <table class="table table-striped table-dark">
             <thead>
@@ -64,11 +62,7 @@
                     <td><?php echo $ders['category']; ?></td>
                 </tr>
             <?php $a++; } ?>
-            </tbody>
-        </table>
-    </div>
-
-    
+            </tbody></table> </div>
 </div><!-- 12 -->
 
 

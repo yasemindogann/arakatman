@@ -26,7 +26,7 @@ class System {
             $this->db_obs->query("SET COLLATION_CONNECTION = 'utf8_turkish_ci'");
         } catch ( PDOException $e ){
             print $e->getMessage();
-        } //try x
+        } 
     } //Obs veritabanı bağlantısını $db_obs değişkenine aktaran fonksiyon
 
     public function baglan_moodle_sistemi(){
@@ -43,7 +43,7 @@ class System {
             $this->db_moodle->query("SET COLLATION_CONNECTION = 'utf8_turkish_ci'");
         } catch ( PDOException $e ){
             print $e->getMessage();
-        } //try x
+        } 
     }
 
     public function baglan_arakatman_sistemi(){
@@ -60,7 +60,7 @@ class System {
             $this->db_arakatman->query("SET COLLATION_CONNECTION = 'utf8_turkish_ci'");
         } catch ( PDOException $e ){
             print $e->getMessage();
-        } //try x
+        } 
     }
 
     public function obs_dersler_kisa_addan($obs_kisa_ad=false){
@@ -88,9 +88,9 @@ class System {
         }
         
         $array = $cek->fetchAll(PDO::FETCH_ASSOC);
-        //$ksayisi = $cek->rowCount();//Kayıt sayısını verir
 
-        //$array[0]['ali'] = 1; //arrayın 0.ncı değerine ali adında yeni bir anahtar açarak 1 değerini verdik.
+
+       
 
 
         foreach ($array as $key => $val){
@@ -125,6 +125,7 @@ class System {
     public function ders_iliskileri(){
 
         $cek = $this->db_arakatman->prepare("SELECT * FROM `ders_baginti` GROUP BY moodle_kisa_ad");
+        //Sql kodları ile ilgili dersleri çekecektir.
         $cek->execute();
         $array = $cek->fetchAll(PDO::FETCH_ASSOC);
 
@@ -201,7 +202,7 @@ class System {
         $mesaj = 'işlem başarısız oldu!';
         if(isset($ders[0])){ //eğer moodle de o kısa adla ders varsa dersi ekleme
             //ÖĞRENCİ EKLEME FONKSİYONU
-            $mesaj = 'BU DERS ZATEN MOODLE\'DE VAR ÖĞRENCİLER GÜNCELLENDİ'; 
+            $mesaj = 'BU DERS ZATEN MOODLE\'DE VAR'; 
 
         } else { //eğer moodle de o kısa adla ders yoksa ekle
             
@@ -210,25 +211,30 @@ class System {
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $eklenecekler = array('30015','4','1',$obs_ders['tam_adi'],$kisa_adi_vt,'weeks','1','1',time(),time()+60*60*24*30*12*360,time(),time()+20,time()+30);
             $ekle->execute($eklenecekler);
-            $mesaj = ' DERS MOODLE\'A YENİDEN EKLENDİ VE ÖĞRENCİLER EKLENDİ';
+            $mesaj = ' DERS MOODLE\'A EKLENDİ';
 
-            $obs_ogrenciler = $this->obs_ogrenciler($obs_ders['kisa_adi']);//obs ogrencilerini cek
-
-            foreach ($obs_ogrenciler as $ogr){
-                $veri = array(
-                    'username'      => $ogr['username'],
-                    'firstname'     => $ogr['name'],
-                    'lastname'      => $ogr['lastname'],
-                    'email'         => $ogr['mail'],
-                    'description'   => 'OBS OGRENCISI',
-                );
-                $this->moodle_ogrenci_ekle($veri);
-            }
 
         }
 
         return $mesaj;
         
+    }
+
+    public function moodle_ogrenci_ekle_baslat($data=array()){
+
+        $obs_ogrenciler = $this->obs_ogrenciler($data['kisa_adi']);//obs ogrencilerini cek
+
+        foreach ($obs_ogrenciler as $ogr){
+            $veri = array(
+                'username'      => $ogr['username'],
+                'firstname'     => $ogr['name'],
+                'lastname'      => $ogr['lastname'],
+                'email'         => $ogr['mail'],
+                'description'   => 'OBS OGRENCISI',
+            );
+            $this->moodle_ogrenci_ekle($veri);
+        }
+
     }
 
     public function moodle_ogrenci_ekle($data = array()){
@@ -276,4 +282,4 @@ class System {
 
 }//cls x
 
-$sys = new System(); //Classı çağıaraak başlattık
+$sys = new System(); //Classı çağırarak başlattık

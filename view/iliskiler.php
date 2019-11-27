@@ -118,15 +118,13 @@ right connector from last child*/
     border-radius: 5px 0 0 0;
     -webkit-border-radius: 5px 0 0 0;
     -moz-border-radius: 5px 0 0 0;
-}
-/*Time to add downward connectors from parents*/
+}/*Time to add downward connectors from parents*/
 .tree ul ul::before{
     content: '';
     position: absolute; top: 0; left: 50%;
     border-left: 2px solid #696969;
     width: 0; height: 20px;
 }
-
 .tree li a{
     height: 100px;
     width: 200px;
@@ -142,9 +140,7 @@ right connector from last child*/
     -transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
-}
-
-/*Time for some hover effects*/
+}/*Time for some hover effects*/
 /*We will apply the hover effect the the lineage of the element also*/
 .tree li a:hover, .tree li a:hover+ul li a {
     background: #cbcbcb; color: #000;
@@ -155,6 +151,5 @@ right connector from last child*/
 .tree li a:hover+ul::before, 
 .tree li a:hover+ul ul::before{
     border-color:  #94a0b4;
-}
-/*#endregion*/
+}/*#endregion*/
 </style>

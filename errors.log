@@ -112,3 +112,8 @@ Stack trace:
 [31-Oct-2019 23:34:19 Europe/Berlin] PHP Notice:  Undefined index: firsname in C:\xampp\htdocs\arakatman\model\System.php on line 126
 [31-Oct-2019 23:39:52 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\arakatman\model\System.php on line 181
 [31-Oct-2019 23:40:06 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\arakatman\model\System.php on line 181
+[27-Nov-2019 22:14:43 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\arakatman\model\System.php:86
+Stack trace:
+#0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
+#1 {main}
+  thrown in C:\xampp\htdocs\arakatman\model\System.php on line 86

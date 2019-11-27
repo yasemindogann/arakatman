@@ -5,16 +5,11 @@ require_once ('config.php');
 include ('model/System.php');
 
 
-#$dersler = $sys->obs_dersler(); //Class içinde fonksiyondan dönen değeri değişkene aktarır
-#echo $sys->obs_dersler(); //Class içinde fonksiyondan dönen değeri ekrana yazdırır
-#echo "<pre>";//arrayları anlaşılır şekilde yazmak için
-#print_r($sys->obs_dersler());//arrayları yazdırmak için
-
 $data = array(
 
-    'obs_dersler'    => $sys->obs_dersler(),
-    'moodle_dersler' => $sys->moodle_dersler(),
-    'mdl_user'       => $sys->moodle_ogrenciler(),
+    'obs_dersler'    => $sys->obs_dersler(),//obs_dersler veritabanından dersler çeker
+    'moodle_dersler' => $sys->moodle_dersler(),//moodle veritabanından dersler çeker
+    'mdl_user'       => $sys->moodle_ogrenciler(),//moodle veritabanından ögrencileri çeker
 
 );
 

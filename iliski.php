@@ -10,17 +10,18 @@ if(isset($_POST['moodle_kisa_ad'])){
 }
 
 
-//EĞER DERS ID GONDERİLDİ İSE AL
+//EĞER DERS ID GONDERİLDİ İSE Alır
 $obs_ders_id = false;//hata vermemesi için tanımlandı
 $son_ders = array(NULL);//hata vermemesi için tanımlandı
+
 if(isset($_GET['obs_ders_id'])){ 
-    $obs_ders_id = $_GET['obs_ders_id'];//gelen ders ıd sını aldık
-    $son_ders = $sys->obs_dersler($obs_ders_id);//Id gondererek çektik tek ders ilişki tanımalamak için  
+    $obs_ders_id = $_GET['obs_ders_id'];//gelen ders ıd sını alır
+    $son_ders = $sys->obs_dersler($obs_ders_id);//İlişki tanımlanacak ders dersin id parametresi ile çekilir.  
 }
 
 $data = array(
-    'obs_ders' => $son_ders[0], //Gelen tek obs dersnini viewe gönderdik
-    'moodle_dersler' => $sys->moodle_dersler(),//Moodle'daki dersleri çektik5
+    'obs_ders' => $son_ders[0], //Gelen tek obs dersnini viewe gönderir
+    'moodle_dersler' => $sys->moodle_dersler(),//Moodle'daki dersleri çeker
 );
 
 //$sys->pre($_POST);

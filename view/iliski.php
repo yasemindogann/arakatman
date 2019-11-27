@@ -12,10 +12,12 @@
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Moodle Kısa Ad</label>
-        <input type="text" name="moodle_kisa_ad" list="characters" maxlength="50" class="form-control" value="<?php echo $data['obs_ders']['moodle_karsiligi']; ?>">
+        <input type="text" name="moodle_kisa_ad" list="characters" maxlength="50" class="form-control"
+         value="<?php echo $data['obs_ders']['moodle_karsiligi']; ?>">
         <datalist id="characters">
             <?php foreach ($data['moodle_dersler'] as $ders){ ?>
-                <option value="<?php echo $ders['shortname']; ?>"><?php echo $ders['shortname']; ?> - <?php echo $ders['fullname']; ?></option>
+                <option value="<?php echo $ders['shortname']; ?>"><?php echo $ders['shortname']; 
+                ?> - <?php echo $ders['fullname']; ?></option>
             <?php } ?>
         </datalist>
     </div>
