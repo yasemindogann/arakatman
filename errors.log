@@ -117,3 +117,23 @@ Stack trace:
 #0 C:\xampp\htdocs\arakatman\index.php(15): System->obs_dersler()
 #1 {main}
   thrown in C:\xampp\htdocs\arakatman\model\System.php on line 86
+[27-Nov-2019 23:02:37 Europe/Berlin] PHP Parse error:  syntax error, unexpected '"; ?><br>' (T_CONSTANT_ENCAPSED_STRING), expecting ',' or ';' in C:\xampp\htdocs\arakatman\view\senkron.php on line 11
+[27-Nov-2019 23:03:03 Europe/Berlin] PHP Notice:  Undefined index: kisa_ad in C:\xampp\htdocs\arakatman\view\senkron.php on line 10
+[27-Nov-2019 23:03:23 Europe/Berlin] PHP Notice:  Undefined variable: isl in C:\xampp\htdocs\arakatman\senkron.php on line 20
+[27-Nov-2019 23:03:23 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function pre() on null in C:\xampp\htdocs\arakatman\senkron.php:20
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\arakatman\senkron.php on line 20
+[27-Nov-2019 23:03:26 Europe/Berlin] PHP Notice:  Undefined variable: isl in C:\xampp\htdocs\arakatman\senkron.php on line 20
+[27-Nov-2019 23:03:26 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function pre() on null in C:\xampp\htdocs\arakatman\senkron.php:20
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\arakatman\senkron.php on line 20
+[27-Nov-2019 23:03:27 Europe/Berlin] PHP Notice:  Undefined variable: isl in C:\xampp\htdocs\arakatman\senkron.php on line 20
+[27-Nov-2019 23:03:27 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function pre() on null in C:\xampp\htdocs\arakatman\senkron.php:20
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\arakatman\senkron.php on line 20
+[27-Nov-2019 23:03:34 Europe/Berlin] PHP Notice:  Undefined index: kisa_ad in C:\xampp\htdocs\arakatman\view\senkron.php on line 10
+[27-Nov-2019 23:20:19 Europe/Berlin] PHP Notice:  Undefined index: son_kisa_ad in C:\xampp\htdocs\arakatman\view\senkron.php on line 10
+[27-Nov-2019 23:20:21 Europe/Berlin] PHP Notice:  Undefined index: son_kisa_ad in C:\xampp\htdocs\arakatman\view\senkron.php on line 10

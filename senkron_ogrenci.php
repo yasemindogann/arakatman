@@ -19,7 +19,7 @@ $data = array(
 );
 
 
-$mesaj = $sys->moodle_ders_ekle($data['obs_ders']); //Moodle a ekleme fonksiyonu
+$mesaj = $sys->moodle_ogrenci_ekle_baslat($_POST); //Moodle a ekleme fonksiyonu
 
 $data['mesaj'] = $mesaj;
 
@@ -27,5 +27,5 @@ $data['mesaj'] = $mesaj;
 
 //HTML KODLARI
 include('view/header.php');
-include('view/senkron.php');
+include('view/senkron_ogrenci.php');
 include('view/footer.php');

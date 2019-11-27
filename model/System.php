@@ -221,27 +221,79 @@ class System {
     }
 
     public function moodle_ogrenci_ekle_baslat($data=array()){
+        
+        $eklenen_ogrenciler = '';
 
-        $obs_ogrenciler = $this->obs_ogrenciler($data['kisa_adi']);//obs ogrencilerini cek
+        $obs_ogrenciler = $this->obs_ogrenciler($data['kisa_ad']);//obs ogrencilerini cek
 
         foreach ($obs_ogrenciler as $ogr){
+
+            switch ($data['isim_format']) {
+                case 'basharfbuyuk':
+                    $son_isim = ucfirst($ogr['name']);
+                break;
+                case 'tumukucuk':
+                    $son_isim = strtolower($ogr['name']);
+                break;
+                case 'tumubuyuk':
+                    $son_isim = strtoupper($ogr['name']);
+                break;
+                case 'std':
+                    $son_isim = $ogr['name'];
+                break;
+            
+            }
+            switch ($data['soyad_format']) {
+                case 'basharfbuyuk':
+                    $son_soyad = ucfirst($ogr['lastname']);
+                break;
+                case 'tumukucuk':
+                    $son_soyad = strtolower($ogr['lastname']);
+                break;
+                case 'tumubuyuk':
+                    $son_soyad = strtoupper($ogr['lastname']);
+                break;
+                case 'std':
+                    $son_soyad = $ogr['lastname'];
+                break;
+            
+            }
+
+            $eklenen_ogrenciler .= $son_isim.' '.$son_soyad.'<br>';
+
             $veri = array(
                 'username'      => $ogr['username'],
-                'firstname'     => $ogr['name'],
-                'lastname'      => $ogr['lastname'],
+                'firstname'     => $son_isim,
+                'lastname'      => $son_soyad,
                 'email'         => $ogr['mail'],
-                'description'   => 'OBS OGRENCISI',
+                'description'   => $data['aciklama'],
+                'city'          => $data['il'],
+                'country'       => $data['ulke'],
+                'lang'          => $data['dil'],
+                'mnethostid'    => 1,
             );
             $this->moodle_ogrenci_ekle($veri);
         }
 
+        return "EKLENEN ÖĞRENCİLER <br><b>".$eklenen_ogrenciler.'</b>';
     }
 
     public function moodle_ogrenci_ekle($data = array()){
 
         //$this->pre($data);
-        $ekle = $this->db_moodle->prepare("INSERT INTO `mdl_user` (username,firstname,lastname,email,description) VALUES (?,?,?,?,?)");
-        $ekle->execute(array($data['username'],$data['firstname'],$data['lastname'],$data['email'],$data['description']));
+        $ekle = $this->db_moodle->prepare("INSERT INTO `mdl_user` (`username`,`firstname`,`lastname`,`email`,`description`,`city`,`country`,`lang`,`mnethostid`)VALUES (?,?,?,?,?,?,?,?,?)");
+
+        $ekle->execute(array(
+            $data['username'],
+            $data['firstname'],
+            $data['lastname'],
+            $data['email'],
+            $data['description'],
+            $data['city'],
+            $data['country'],
+            $data['lang'],
+            $data['mnethostid'],
+        ));
 
     }
 
