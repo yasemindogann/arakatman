@@ -1,8 +1,8 @@
 <?php
 //CONFIG
-require_once ('config.php');
+include ('config.php');
 //MODELS
-include('model/System.php');
+include ('model/System.php');
 
 
 #$dersler = $sys->obs_dersler(); //Class içinde fonksiyondan dönen değeri değişkene aktarır
@@ -21,6 +21,6 @@ $data = array(
 
 
 //HTML KODLARI
-include('view/header.php');
-include('view/index.php');
-include('view/footer.php');
+include ('view/header.php');
+include ('view/index.php');
+include ('view/footer.php');

@@ -2,11 +2,31 @@
 <!--
 ORG CHART
 =========================================-->
-
+<div class="col-lg-12">
+    <form action="" method="get">
+    <table align="center" width="50%">
+        <tr>
+            <td width="50%">
+                <input type="text" name="ara" class="form-control" value="<?php echo $data['ara_value']; ?>">
+            </td>
+            <td>&nbsp;</td>
+            <td>
+                <button type="submit" class="btn btn-success btn-block">ARA</button>
+            </td>
+            <td>&nbsp;</td>
+            <td>
+            <a href="iliski.php">    
+                <div class="btn btn-info">Yeni Bir İlişki Tanımla</div>
+            </a>
+            </td>
+        </tr>
+    </table>
+    </form>
+</div>
 <div class="container-fluid" style="margin-top:20px">
     <div class="row">
         <?php foreach($data['iliskiler'] as $veri){ ?>
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-12 text-center mt-5 pb-3 border" style="background:#434242;">
             <div class="tree">
                 <ul>
                     <li>
@@ -49,14 +69,16 @@ ORG CHART
                 </ul>
             </div>
         </div>
+        <div class="col-lg-12"></div>
         <?php } ?>
-        <hr>
+        
     </div>
 </div>
 
 
 <style>
 /*#region Organizational Chart*/
+
 .tree * {
     margin: 0; padding: 0;
 }

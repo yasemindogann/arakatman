@@ -122,11 +122,14 @@ class System {
     }//fnk obs ogrenciler x
 
 
-    public function ders_iliskileri(){
-
-        $cek = $this->db_arakatman->prepare("SELECT * FROM `ders_baginti` GROUP BY moodle_kisa_ad");
-        //Sql kodları ile ilgili dersleri çekecektir.
-        $cek->execute();
+    public function ders_iliskileri($ara=false){
+        if($ara){
+            $cek = $this->db_arakatman->prepare("SELECT * FROM `ders_baginti` WHERE obs_kisa_ad LIKE ? OR moodle_kisa_ad LIKE ? OR obs_adi LIKE ? OR moodle_adi LIKE ? GROUP BY moodle_kisa_ad");
+            $cek->execute(array('%'.$ara.'%','%'.$ara.'%','%'.$ara.'%','%'.$ara.'%'));
+        } else {
+            $cek = $this->db_arakatman->prepare("SELECT * FROM `ders_baginti` GROUP BY moodle_kisa_ad");
+            $cek->execute();
+        }
         $array = $cek->fetchAll(PDO::FETCH_ASSOC);
 
         $veriler = array();
@@ -142,6 +145,7 @@ class System {
         return $veriler;
 
     }//fnk ders_iliskileri x
+
 
     public function ders_iliskileri_alt_bul($gelen_kisa_ad){
         
@@ -164,17 +168,17 @@ class System {
         }
     }//fnk moodle dersler x
 
-    public function arakatman_karsilik_guncelle($obs_kisa_ad,$moodle_kisa_ad){
+    public function arakatman_karsilik_guncelle($obs_kisa_ad,$moodle_kisa_ad,$obs_ad){
         
         $tabloda_var_mi = $this->moodle_ders_karsiligi_bul($obs_kisa_ad);//BU KISA AAD DAHA ÖNCE DERS BAGINTILARI TABLOSUNDA VAR MI BAKALIM
         
         $moodle = $this->moodle_dersler($moodle_kisa_ad);
-        $obs = $this->obs_dersler_kisa_addan($obs_kisa_ad);
+       
 
         if(isset($moodle[0]['fullname'])){
             $moodle_adix = $moodle[0]['fullname'];
         } else {
-            $moodle_adix = $obs['tam_adi'];
+            $moodle_adix = $obs_ad;
         }
         
 
@@ -183,7 +187,7 @@ class System {
             $guncelle->execute(array($moodle_kisa_ad,$moodle_adix,$obs_kisa_ad));
         } else {//karşlık tablosunda yoksa ekle
             $ekle = $this->db_arakatman->prepare("INSERT INTO `ders_baginti` (moodle_kisa_ad,moodle_adi,obs_kisa_ad,obs_adi) VALUES (?,?,?,?)");
-            $ekle->execute(array($moodle_kisa_ad,$moodle_adix,$obs_kisa_ad,$obs['tam_adi']));
+            $ekle->execute(array($moodle_kisa_ad,$moodle_adix,$obs_kisa_ad,$obs_ad));
         }
         
     }

@@ -10,9 +10,15 @@ include('model/System.php');
 #echo "<pre>";//arrayları anlaşılır şekilde yazmak için
 #print_r($sys->obs_dersler());//arrayları yazdırmak için
 
+$ara = false;
+if(isset($_GET['ara'])){
+    $ara = $_GET['ara'];
+}
+
 $data = array(
 
-    'iliskiler' => $sys->ders_iliskileri(),    
+    'iliskiler' => $sys->ders_iliskileri($ara), 
+    'ara_value' => $ara,  
 );
 
 //$sys->pre($data);
