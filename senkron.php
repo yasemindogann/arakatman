@@ -2,7 +2,7 @@
 //CONFIG
 require_once ('config.php');
 //MODELS
-include('model/System.php');
+include ('model/System.php');
 
 
 //EĞER DERS ID GONDERİLDİ İSE Al
@@ -23,12 +23,18 @@ if($son_ders[0]['moodle_karsiligi']){
 
 $data = array(
     'obs_ders' => $son_ders[0],
+    'obs_ders_id' => $obs_ders_id,
     'son_kisa_ad' =>$son_kisa_ad,
+    'moodle_kategoriler' => $sys->moodle_kategoriler()
 );
 
+$mesaj = 'Dikkat! Önce Bu dersin gönderileceği bir Moodle kategorisi seçiniz';
 
-$mesaj = $sys->moodle_ders_ekle($data['obs_ders']); //Moodle a ekleme fonksiyonu
+if(isset($_POST['kategori_id'])){
+    $mesaj = $sys->moodle_ders_ekle($data['obs_ders'],$_POST['kategori_id']); //Moodle a ekleme fonksiyonu
+}
 
+//$sys->pre($data);
 
 
 $data['mesaj'] = $mesaj;
@@ -36,6 +42,6 @@ $data['mesaj'] = $mesaj;
 
 
 //HTML KODLARI
-include('view/header.php');
-include('view/senkron.php');
-include('view/footer.php');
+include ('view/header.php');
+include ('view/senkron.php');
+include ('view/footer.php');

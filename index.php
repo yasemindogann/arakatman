@@ -12,9 +12,8 @@ include ('model/System.php');
 
 $data = array(
 
-    'obs_dersler' => $sys->obs_dersler(),
-    'moodle_dersler' => $sys->moodle_dersler(),
-    'mdl_user' => $sys->moodle_ogrenciler(),
+    'moodle_dersler' => $sys->moodle_dersler_say(),
+    'moodle_ogrenciler' => $sys->moodle_ogrenciler_say(),
 );
 
 //$sys->pre($data);

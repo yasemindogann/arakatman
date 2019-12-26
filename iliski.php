@@ -2,7 +2,7 @@
 //CONFIG
 require_once ('config.php');
 //MODELS
-include('model/System.php');
+include ('model/System.php');
 
 #EĞER FORM POST EDILMIŞSE
 if(isset($_POST['moodle_kisa_ad'])){ 
@@ -33,6 +33,6 @@ $data = array(
 
 
 //HTML KODLARI
-include('view/header.php');
-include('view/iliski.php');
-include('view/footer.php');
+include ('view/header.php');
+include ('view/iliski.php');
+include ('view/footer.php');

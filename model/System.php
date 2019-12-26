@@ -1,33 +1,15 @@
 <?php
 class System {
 
-    public $db_obs;//veritabanı bağlantısını tutar
     public $db_moodle;//veritabanı bağlantısını tutar
     public $db_arakatman;//veritabanı bağlantısını tutar
 
     function __construct(){ //Class cağırılınca otomatik olarak çalışır fonksiyon
 
-        $this->baglan_obs_sistemi();
+       
         $this->baglan_moodle_sistemi();
         $this->baglan_arakatman_sistemi();
     }
-
-    public function baglan_obs_sistemi(){
-
-        $host = OBS_HOST;
-        $dbname = OBS_DB_NAME;
-        $user = OBS_DB_USER;
-        $pass = OBS_DB_PASS;
-
-        try {
-            $this->db_obs = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", "{$user}", "{$pass}");
-            $this->db_obs->query("SET NAMES 'utf8'");
-            $this->db_obs->query("SET CHARACTER SET utf8");
-            $this->db_obs->query("SET COLLATION_CONNECTION = 'utf8_turkish_ci'");
-        } catch ( PDOException $e ){
-            print $e->getMessage();
-        } 
-    } //Obs veritabanı bağlantısını $db_obs değişkenine aktaran fonksiyon
 
     public function baglan_moodle_sistemi(){
 
@@ -58,6 +40,7 @@ class System {
             $this->db_arakatman->query("SET NAMES 'utf8'");
             $this->db_arakatman->query("SET CHARACTER SET utf8");
             $this->db_arakatman->query("SET COLLATION_CONNECTION = 'utf8_turkish_ci'");
+            $this->db_arakatman->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
         } catch ( PDOException $e ){
             print $e->getMessage();
         } 
@@ -65,7 +48,7 @@ class System {
 
     public function obs_dersler_kisa_addan($obs_kisa_ad=false){
        
-            $cek = $this->db_obs->prepare("SELECT * FROM `ders` WHERE kisa_adi=?");//Id istenen dersler
+            $cek = $this->db_arakatman->prepare("SELECT * FROM `ders` WHERE kisa_adi=?");//Id istenen dersler
             $cek->execute(array($obs_kisa_ad));
             $array = $cek->fetchAll(PDO::FETCH_ASSOC);
 
@@ -80,10 +63,10 @@ class System {
     public function obs_dersler($obs_ders_id=false){
 
         if($obs_ders_id){//ders id gönderilmişse sadece gönderilden ID nin dersini çek
-            $cek = $this->db_obs->prepare("SELECT * FROM `ders` WHERE id=?");//Id istenen dersler
+            $cek = $this->db_arakatman->prepare("SELECT * FROM `ders` WHERE id=?");//Id istenen dersler
             $cek->execute(array($obs_ders_id));
         } else {
-            $cek = $this->db_obs->prepare("SELECT * FROM `ders`");//obsdeki dersler
+            $cek = $this->db_arakatman->prepare("SELECT * FROM `ders`");//obsdeki dersler
             $cek->execute();
         }
         
@@ -109,10 +92,10 @@ class System {
     public function obs_ogrenciler($kisa_adi=false){
 
         if($kisa_adi){//ders id gönderilmişse sadece gönderilden ID nin dersini çek
-            $cek = $this->db_obs->prepare("SELECT * FROM `ogrenci` WHERE ders_kisa_adi=?");//Id istenen dersler
+            $cek = $this->db_arakatman->prepare("SELECT * FROM `ogrenci` WHERE ders_kisa_adi=?");//Id istenen dersler
             $cek->execute(array($kisa_adi));
         } else {
-            $cek = $this->db_obs->prepare("SELECT * FROM `ogrenci`");//obsdeki dersler
+            $cek = $this->db_arakatman->prepare("SELECT * FROM `ogrenci`");//obsdeki dersler
             $cek->execute();
         }
         
@@ -192,7 +175,7 @@ class System {
         
     }
 
-    public function moodle_ders_ekle($obs_ders){
+    public function moodle_ders_ekle($obs_ders,$kategori_id){
         
         #MOODLE KARDILIGI TANIMLANMIŞSA
         if($obs_ders['moodle_karsiligi']){
@@ -213,7 +196,7 @@ class System {
             $ekle = $this->db_moodle->prepare("INSERT INTO `mdl_course` 
             (sortorder,category,summaryformat,fullname,shortname,format,visible,visibleold,startdate,enddate,timecreated,timemodified,cacherev) 
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            $eklenecekler = array('30015','4','1',$obs_ders['tam_adi'],$kisa_adi_vt,'weeks','1','1',time(),time()+60*60*24*30*12*360,time(),time()+20,time()+30);
+            $eklenecekler = array('30015',$kategori_id,'1',$obs_ders['tam_adi'],$kisa_adi_vt,'weeks','1','1',time(),time()+60*60*24*30*12*360,time(),time()+20,time()+30);
             $ekle->execute($eklenecekler);
             $mesaj = ' DERS MOODLE\'A EKLENDİ';
 
@@ -304,11 +287,37 @@ class System {
     public function moodle_dersler($kisa_ad=false){
 
         if($kisa_ad==false){ //Parametre gönderilmediyse tüm dersleri çek
-            $cek = $this->db_moodle->prepare("SELECT * FROM `mdl_course` WHERE summaryformat > ?");
+            $cek = $this->db_moodle->prepare("SELECT mdl_course.*,mdl_course_categories.name FROM `mdl_course` LEFT JOIN mdl_course_categories ON mdl_course.category=mdl_course_categories.id WHERE mdl_course.summaryformat > ?");
             $cek->execute(array(0));
         } else {//Parametre gönderildiyse sadece o kısa ada eşit olan dersi çek
-            $cek = $this->db_moodle->prepare("SELECT * FROM `mdl_course` WHERE summaryformat > ? AND shortname = ?");
+            $cek = $this->db_moodle->prepare("SELECT mdl_course.*,mdl_course_categories.name FROM `mdl_course` LEFT JOIN mdl_course_categories ON mdl_course.category=mdl_course_categories.id WHERE mdl_course.summaryformat > ? AND mdl_course.shortname = ?");
             $cek->execute(array(0,$kisa_ad));
+        }
+
+        $array = $cek->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array;
+
+    }//fnk moodle dersler x
+
+    public function moodle_dersler_say(){
+
+        $cek = $this->db_moodle->prepare("SELECT COUNT(id) FROM `mdl_course` WHERE summaryformat > ?");
+        $cek->execute(array(0));
+        $array = $cek->fetchAll(PDO::FETCH_ASSOC);
+
+        return $array[0]['COUNT(id)'];
+
+    }//fnk moodle dersler x
+
+    public function moodle_kategoriler($id=false){
+
+        if($id){ //Parametre gönderilmediyse tüm dersleri çek
+            $cek = $this->db_moodle->prepare("SELECT id,name FROM `mdl_course_categories` WHERE id = ?");
+            $cek->execute(array($id));
+        } else {//Parametre gönderildiyse sadece o kısa ada eşit olan dersi çek
+            $cek = $this->db_moodle->prepare("SELECT id,name FROM `mdl_course_categories` ORDER BY id DESC");
+            $cek->execute();
         }
 
         $array = $cek->fetchAll(PDO::FETCH_ASSOC);
@@ -326,6 +335,56 @@ class System {
 
         return $array;
 
+    }
+
+    public function moodle_ogrenciler_say(){
+
+        $cek = $this->db_moodle->prepare("SELECT COUNT(id) FROM `mdl_user`");
+        $cek->execute();
+        $array = $cek->fetchAll(PDO::FETCH_ASSOC);
+        return $array[0]['COUNT(id)'];
+    }
+
+    public function obs_ders_ekle($tam_ad,$kisa_ad,$kategori,$xml_id){
+        
+        $cek = $this->db_arakatman->prepare("SELECT * FROM `ders` WHERE kisa_adi = ? AND xml_id = ?");
+        $cek->execute(array($kisa_ad,$xml_id));
+        $tabloda_var_mi = $cek->rowCount();
+
+        if($tabloda_var_mi < 1){ //karşlık tablosunda varsa güncelle
+            $ekle = $this->db_arakatman->prepare("INSERT INTO `ders`(tam_adi,kisa_adi,kategori,xml_id) VALUES (?,?,?,?)");
+            $ekle->execute(array($tam_ad,$kisa_ad,$kategori,$xml_id));
+            return 'Ders aktarım için sisteme kaydedildi : <b>'.$tam_ad.' '.$kisa_ad.$xml_id.'</b><br>';
+        } else {
+            return 'Ders bu XML id ve DERS KISA ADI ile zaten var : <b>'.$tam_ad.' '.$kisa_ad.'</b><br>';
+        }
+
+    }
+
+    public function obs_ogrenci_ekle($username,$name,$lastname,$mail,$ders_kisa_adi,$xml_id){
+        
+        $cek = $this->db_arakatman->prepare("SELECT * FROM `ogrenci` WHERE ders_kisa_adi = ? AND xml_id = ? AND mail = ?");
+        $cek->execute(array($ders_kisa_adi,$xml_id,$mail));
+        $tabloda_var_mi = $cek->rowCount();
+
+        if($tabloda_var_mi < 1){ //karşlık tablosunda varsa güncelle
+            $ekle = $this->db_arakatman->prepare("INSERT INTO `ogrenci` (username,name,lastname,mail,ders_kisa_adi,xml_id) VALUES (?,?,?,?,?,?)");
+            $ekle->execute(array($username,$name,$lastname,$mail,$ders_kisa_adi,$xml_id));
+            return 'Öğrenci aktarım için sisteme kaydedildi : <b>'.$name.' '.$lastname.'</b><br>';
+        } else {
+            return 'Öğrenci bu XML id ve MAIL ve DERS KISA ADI ile zaten var : <b>'.$name.' '.$lastname.'</b><br>';
+        }
+
+    }
+
+    public function aktarim_sistemini_temizle_ders($xml_id){
+        $sil = $this->db_arakatman->prepare("DELETE FROM `ders` WHERE `ders`.`xml_id` = ?");
+        $sil->execute(array($xml_id));
+    }
+
+    public function aktarim_sistemini_temizle_ogrenci($xml_id){
+        $sil = $this->db_arakatman->prepare("DELETE FROM `ogrenci` WHERE `ogrenci`.`xml_id` = ?");
+        $sil->execute(array($xml_id));
     }
 
     public function pre($deger){

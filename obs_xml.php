@@ -10,7 +10,7 @@ include ('model/System.php');
 
 $data = array(
 
-    'obs_dersler'    => $sys->obs_dersler(),//obs_dersler veritabanından dersler çeker
+    'obs_dersler' => $sys->obs_dersler(),//obs_dersler veritabanından dersler çeker
 
 );
 
@@ -22,7 +22,7 @@ $data = array(
     <LESSON>
         <NAME><?php echo $ders['tam_adi']; ?></NAME>
         <SHORTNAME><?php echo $ders['kisa_adi']; ?></SHORTNAME>
-        <STUDENTDS>
+        <STUDENTS>
         <?php $ogrenciler = $sys->obs_ogrenciler($ders['kisa_adi']); ?>
             <?php if($ogrenciler){ foreach($ogrenciler as $ogrenci){ ?>
             <STUDENT>
@@ -32,7 +32,7 @@ $data = array(
                 <EMAIL><?php echo $ogrenci['mail']; ?></EMAIL>
             </STUDENT>
             <?php }} ?>
-        </STUDENTDS>
+        </STUDENTS>
     </LESSON>
     <?php }//foreach x ?>
 </LESSONS>

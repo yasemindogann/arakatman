@@ -59,7 +59,7 @@
                     <th scope="row"><?php echo $a; ?></th>
                     <td><?php echo $ders['fullname']; ?></td>
                     <td><?php echo $ders['shortname']; ?></td>
-                    <td><?php echo $ders['category']; ?></td>
+                    <td><?php echo $ders['name']; ?></td>
                 </tr>
             <?php $a++; } ?>
             </tbody></table> </div>

@@ -1,0 +1,11 @@
+<LESSONS>
+    <LESSSON>
+        <NAME>Ders1</NAME>
+        <SHORTNAME>D111</SHORTNAME>
+        <STUDENT>
+           <NAME>Yasemin</NAME>
+           <SURNAME>DOĞAN</SURNAME>
+           <EMAİL>yasemin@gmail.com</EMAİL>
+        </STUDENT>
+    </LESSON>
+</LESSONS>
