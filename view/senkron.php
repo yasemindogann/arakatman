@@ -35,9 +35,13 @@
                 <button type="submit" class="btn btn-success btn-block">Dersi Senkronize Et</button>
             </td>
             <td>
-                <a href="senkron_ogrenci.php?obs_ders_id=<?php echo $data['obs_ders_id']; ?>">
+            <?php if($data['moodle_ders_id']){ ?>
+                <a href="senkron_ogrenci.php?obs_ders_id=<?php echo $data['obs_ders_id']; ?>&moodle_ders_id=<?php echo $data['moodle_ders_id']; ?>">
                     <div class="btn btn-warning btn-block">Öğrencileri Senkronize Et</div>
                 </a>
+            <?php } else { ?>
+                <div class="btn btn-secondary btn-block">Dersten Sonra Öğrenciler Senkronize Edilebilir!</div>
+            <?php } ?>
             </td>
          </tr>
       

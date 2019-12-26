@@ -12,6 +12,16 @@
 
     <div class="col-lg-5 border text-left float-left">
         <form action="senkron_ogrenci.php?obs_ders_id=<?php echo $data['obs_ders_id']; ?>" method="post">
+        <input type="hidden" name="obs_ders_id" value="<?php echo $data['obs_ders_id']; ?>">
+        <input type="hidden" name="moodle_ders_id" value="<?php echo $data['moodle_ders_id']; ?>">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Bu Dersin Öğrencileri Gibi Aktar(Örnek Alınır)</label>
+                <select name="ornek_moodle_ders_id" class="form-control">
+                    <?php if($data['moodle_ornek_ders']){ foreach($data['moodle_ornek_ders'] as $omdl){ ?>
+                    <option value="<?php echo $omdl['courseid']; ?>"><?php echo $omdl['fullname']; ?> - <?php echo $omdl['shortname']; ?></option>
+                    <?php }} ?>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Kısa Ad</label>
                 <input type="text" name="kisa_ad" value="<?php echo $data['son_kisa_ad']; ?>" class="form-control">

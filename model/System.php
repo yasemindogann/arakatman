@@ -189,7 +189,8 @@ class System {
         $mesaj = 'işlem başarısız oldu!';
         if(isset($ders[0])){ //eğer moodle de o kısa adla ders varsa dersi ekleme
             //ÖĞRENCİ EKLEME FONKSİYONU
-            $mesaj = 'BU DERS ZATEN MOODLE\'DE VAR'; 
+            $data['mesaj'] = 'BU DERS ZATEN MOODLE\'DE VAR'; 
+            $data['moodle_ders_id'] = $ders[0]['id'];
 
         } else { //eğer moodle de o kısa adla ders yoksa ekle
             
@@ -198,17 +199,51 @@ class System {
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $eklenecekler = array('30015',$kategori_id,'1',$obs_ders['tam_adi'],$kisa_adi_vt,'weeks','1','1',time(),time()+60*60*24*30*12*360,time(),time()+20,time()+30);
             $ekle->execute($eklenecekler);
-            $mesaj = ' DERS MOODLE\'A EKLENDİ';
+            
+            $data['mesaj'] = ' DERS MOODLE\'A EKLENDİ'; 
+            $data['moodle_ders_id'] = $this->db_moodle->lastInsertId();
 
 
         }
 
-        return $mesaj;
+        return $data;
         
     }
 
     public function moodle_ogrenci_ekle_baslat($data=array()){
         
+        $obs_ders_id = $data['obs_ders_id'];
+        $kaydet_id = $data['moodle_ders_id'];
+
+        $ornek_id = $data['ornek_moodle_ders_id'];
+
+        $kayit_enroll = $this->moodle_ornek_ders_cek($kaydet_id);
+        if(isset($kayit_enroll[0]['id']) AND $kayit_enroll[0]['id']!=''){
+            $kaydet_enrol_id = $kayit_enroll[0]['id'];
+            $role_id = $kayit_enroll[0]['roleid'];
+        }
+
+        if(empty($kayit_enroll[0])){//daha önce bir enrol yapısı olusmadıysa olustur
+            
+            $ornek_enroll = $this->moodle_ornek_ders_cek($ornek_id);
+            $role_id = $ornek_enroll[0]['roleid'];
+            
+            //İLK AŞAMA ÖRNEK DERS GİBİ BİR ENROL OLUŞTUR
+            $ekle1 = $this->db_moodle->prepare("INSERT INTO `mdl_enrol` (`enrol`,`status`,`courseid`,`sortorder`,`roleid`,`timecreated`,`timemodified`)VALUES (?,?,?,?,?,?,?)");
+            $ekle1->execute(array(
+                'manual',
+                0,
+                $kaydet_id,
+                0,
+                $ornek_enroll[0]['roleid'],
+                time(),
+                time(),
+            ));
+
+            $kaydet_enrol_id = $this->db_moodle->lastInsertId();
+            
+        }
+
         $eklenen_ogrenciler = '';
 
         $obs_ogrenciler = $this->obs_ogrenciler($data['kisa_ad']);//obs ogrencilerini cek
@@ -259,28 +294,87 @@ class System {
                 'lang'          => $data['dil'],
                 'mnethostid'    => 1,
             );
-            $this->moodle_ogrenci_ekle($veri);
-        }
+
+            $user_id = $this->moodle_ogrenci_ekle($veri);
+
+            #ÖĞRENCİ VAR MI BAK
+            $cek = $this->db_moodle->prepare("SELECT COUNT(id) FROM `mdl_user_enrolments` WHERE userid = ? AND enrolid=?");
+            $cek->execute(array($user_id,$kaydet_enrol_id));
+            $array = $cek->fetchAll(PDO::FETCH_ASSOC);
+            $sayi = $array[0]['COUNT(id)'];
+
+            #ÖĞRENCİ YOKSA KAYDET
+            if($sayi < 1){
+                $ekle2 = $this->db_moodle->prepare("INSERT INTO `mdl_user_enrolments` (`status`,`enrolid`,`userid`,`modifierid`,`timecreated`,`timemodified`)VALUES (?,?,?,?,?,?)");
+                $ekle2->execute(array(
+                    '0',
+                    $kaydet_enrol_id,
+                    $user_id,
+                    2,
+                    time(),
+                    time(),
+                ));
+            }//if sayi x
+
+
+            #ÖĞRENCİ VAR MI BAK
+            $cek = $this->db_moodle->prepare("SELECT COUNT(id) FROM `mdl_role_assignments` WHERE userid = ? AND roleid=?");
+            $cek->execute(array($user_id,$role_id));
+            $array = $cek->fetchAll(PDO::FETCH_ASSOC);
+            $sayi = $array[0]['COUNT(id)'];
+
+            #ÖĞRENCİ YOKSA KAYDET
+            if($sayi < 1){
+
+                $ekle2 = $this->db_moodle->prepare("INSERT INTO `mdl_role_assignments` (`roleid`,`contextid`,`userid`,`timemodified`,`modifierid`)VALUES (?,?,?,?,?)");
+                $ekle2->execute(array(
+                    $role_id,
+                    85,
+                    $user_id,
+                    time(),
+                    2
+                ));
+
+            }//if sayi x
+
+
+        }//foreach x
+
+
+       
 
         return "EKLENEN ÖĞRENCİLER <br><b>".$eklenen_ogrenciler.'</b>';
     }
 
     public function moodle_ogrenci_ekle($data = array()){
 
-        //$this->pre($data);
-        $ekle = $this->db_moodle->prepare("INSERT INTO `mdl_user` (`username`,`firstname`,`lastname`,`email`,`description`,`city`,`country`,`lang`,`mnethostid`)VALUES (?,?,?,?,?,?,?,?,?)");
+        $cek = $this->db_moodle->prepare("SELECT * FROM `mdl_user` WHERE email = ?");
+        $cek->execute(array($data['email']));
+        $array = $cek->fetchAll(PDO::FETCH_ASSOC);
 
-        $ekle->execute(array(
-            $data['username'],
-            $data['firstname'],
-            $data['lastname'],
-            $data['email'],
-            $data['description'],
-            $data['city'],
-            $data['country'],
-            $data['lang'],
-            $data['mnethostid'],
-        ));
+        if(!isset($array[0]['email'])){
+        
+            $ekle = $this->db_moodle->prepare("INSERT INTO `mdl_user` (`username`,`firstname`,`lastname`,`email`,`description`,`city`,`country`,`lang`,`mnethostid`)VALUES (?,?,?,?,?,?,?,?,?)");
+
+            $ekle->execute(array(
+                $data['username'],
+                $data['firstname'],
+                $data['lastname'],
+                $data['email'],
+                $data['description'],
+                $data['city'],
+                $data['country'],
+                $data['lang'],
+                $data['mnethostid'],
+            ));
+
+            $user_id = $this->db_moodle->lastInsertId();
+
+        } else {
+            $user_id = $array[0]['id'];
+        }//öğrenci yoksa ekle
+
+        return $user_id;
 
     }
 
@@ -343,6 +437,22 @@ class System {
         $cek->execute();
         $array = $cek->fetchAll(PDO::FETCH_ASSOC);
         return $array[0]['COUNT(id)'];
+    }
+
+    //ÖĞRENCİLERİ KAYDETMESİ İÇİ MOODLE DB YAPISINDA UYGUN ALANLARIN HANGİ KURSA GÖRE EKLENECEĞİNİ BULMAK İÇİN
+    public function moodle_ornek_ders_cek($id=false){
+
+        if($id==false){
+            $cek = $this->db_moodle->prepare("SELECT courseid,mdl_course.fullname,mdl_course.shortname FROM `mdl_enrol` LEFT JOIN mdl_course ON mdl_enrol.courseid = mdl_course.id ORDER BY mdl_enrol.id DESC");
+            $cek->execute();
+            $array = $cek->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $cek = $this->db_moodle->prepare("SELECT * FROM `mdl_enrol` WHERE courseid = ?");
+            $cek->execute(array($id));
+            $array = $cek->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $array;
+
     }
 
     public function obs_ders_ekle($tam_ad,$kisa_ad,$kategori,$xml_id){

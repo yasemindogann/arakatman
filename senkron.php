@@ -25,20 +25,18 @@ $data = array(
     'obs_ders' => $son_ders[0],
     'obs_ders_id' => $obs_ders_id,
     'son_kisa_ad' =>$son_kisa_ad,
-    'moodle_kategoriler' => $sys->moodle_kategoriler()
+    'moodle_kategoriler' => $sys->moodle_kategoriler(),
+    'moodle_ders_id' => false,
+    'mesaj' => 'Dikkat! Önce Bu dersin gönderileceği bir Moodle kategorisi seçiniz',
 );
 
-$mesaj = 'Dikkat! Önce Bu dersin gönderileceği bir Moodle kategorisi seçiniz';
-
 if(isset($_POST['kategori_id'])){
-    $mesaj = $sys->moodle_ders_ekle($data['obs_ders'],$_POST['kategori_id']); //Moodle a ekleme fonksiyonu
+    $gelendata = $sys->moodle_ders_ekle($data['obs_ders'],$_POST['kategori_id']); //Moodle a ekleme fonksiyonu
+    $data['mesaj'] = $gelendata['mesaj'];
+    $data['moodle_ders_id'] = $gelendata['moodle_ders_id'];
 }
 
 //$sys->pre($data);
-
-
-$data['mesaj'] = $mesaj;
-
 
 
 //HTML KODLARI

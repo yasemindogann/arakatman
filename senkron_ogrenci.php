@@ -26,6 +26,8 @@ $data = array(
     'obs_ders' => $son_ders[0],
     'obs_ders_id' => $obs_ders_id,
     'son_kisa_ad' =>$son_kisa_ad,
+    'moodle_ornek_ders' => $sys->moodle_ornek_ders_cek(), // Hangi derse kaydedilmiş öğrenciler gibi kaydedilsin
+    'moodle_ders_id' => isset($_GET['moodle_ders_id']) ?  $_GET['moodle_ders_id'] : false,//öğrenciler hangi derse kayıt olsuı
 );
 
 $mesaj = 'Öğrencileri aktarmak için gerekli seçimleri yapınız!'; 
@@ -35,6 +37,7 @@ if(isset($_POST['kisa_ad'])){
 
 $data['mesaj'] = $mesaj;
 
+//$sys->pre($data);
 
 
 //HTML KODLARI
